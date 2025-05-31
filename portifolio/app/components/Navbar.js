@@ -17,35 +17,36 @@ export default function Navbar() {
   ]
 
   return (
-    <nav className="bg-gray-50 sticky top-5">
-      <div className="container mx-160 px-10">
-        <div className="flex justify-between py-4">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-transparent backdrop-blur-sm">
+      <div className="container mx-auto px-4 md:px-10">
+        <div className="flex justify-between items-center py-4">
 
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex mx-auto space-x-8">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                className="text-gray-800 hover:text-blue-600 transition-colors duration-200"
               >
                 {item.label}
               </Link>
             ))}
           </div>
 
-          <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="md:hidden ml-auto">
+            <button onClick={() => setIsOpen(!isOpen)}>
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
-
         {isOpen && (
-          <div className="md:hidden pb-4">
+          <div className="md:hidden pb-4 text-center">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="block py-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                className="block py-2 text-gray-800 hover:text-blue-600 transition-colors duration-200"
                 onClick={() => setIsOpen(false)}
               >
                 {item.label}
