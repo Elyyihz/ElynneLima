@@ -8,19 +8,24 @@ export default function Home() {
   const [author, setAuthor] = useState("")
 
   useEffect(() => {
+  fetch("https://api.quotable.io/random?tags=technology|moivacional")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Resposta da API não foi OK");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      setQuote(data.quote);
+      setAuthor(data.author);
+    })
+    .catch((error) => {
+      console.error("Erro ao buscar citação:", error);
+      setQuote("A tecnologia é melhor quando aproxima as pessoas.");
+      setAuthor("Matt Mullenweg");
+    });
+}, []);
 
-    fetch("https://api.quotable.io/random?tags=technology,motivational")
-      .then((response) => response.json())
-      .then((data) => {
-        setQuote(data.content)
-        setAuthor(data.author)
-      })
-      .catch((error) => {
-        console.error("Erro ao buscar citação:", error)
-        setQuote("A tecnologia é melhor quando aproxima as pessoas.")
-        setAuthor("Matt Mullenweg")
-      })
-  }, [])
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -56,7 +61,7 @@ export default function Home() {
               </a>
 
                <a
-                href="https://wa.me/81986267563?text=Olá, tudo bem? Vim do seu Portifolio!"
+                href="https://wa.me/81986267563?text=Olá, tudo bem? Vim pelo seu Portifolio!"
                 className="bg-green-600 text-white p-3 rounded-full hover:bg-green-500 transition-colors duration-200"
               >
                 <MessageCircle size={24} />
